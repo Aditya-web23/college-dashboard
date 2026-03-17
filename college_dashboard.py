@@ -24,9 +24,6 @@ LOCAL_FILE   = None   # e.g. r"C:\Users\You\Desktop\Engineering_College_Manageme
 POLL_SECONDS = 3
 WORKING_DAYS = 26     # working days per month used when building the Excel
 
-# ── Auto-load Excel from repo (Streamlit Cloud) ───────────────────────────────
-# When deployed, the Excel sits next to this .py file in the repo.
-# We pre-load it so users don't need to upload manually.
 import pathlib
 _REPO_FILE = pathlib.Path(__file__).parent / "Engineering_College_Management.xlsx"
 # ══════════════════════════════════════════════════════════════════════════════
@@ -69,13 +66,7 @@ for k,v in [("file_bytes",None),("file_hash",""),("file_name",""),
     if k not in st.session_state:
         st.session_state[k] = v
 
-# Auto-load from repo if file exists and not already loaded
-if st.session_state.file_bytes is None and _REPO_FILE.exists():
-    _bytes = _REPO_FILE.read_bytes()
-    st.session_state.file_bytes   = _bytes
-    st.session_state.file_hash    = md5_bytes(_bytes)
-    st.session_state.file_name    = _REPO_FILE.name
-    st.session_state.last_changed = "loaded from repo"
+
 
 def md5_file(path):
     h = hashlib.md5()
@@ -83,6 +74,14 @@ def md5_file(path):
     return h.hexdigest()
 
 def md5_bytes(b): return hashlib.md5(b).hexdigest()
+
+# ── Auto-load Excel from repo (Streamlit Cloud) ───────────────────────────────
+if st.session_state.file_bytes is None and _REPO_FILE.exists():
+    _bytes = _REPO_FILE.read_bytes()
+    st.session_state.file_bytes   = _bytes
+    st.session_state.file_hash    = md5_bytes(_bytes)
+    st.session_state.file_name    = _REPO_FILE.name
+    st.session_state.last_changed = "loaded from repo"
 
 # ── SMART SHEET LOADER ────────────────────────────────────────────────────────
 @st.cache_data(show_spinner=False)
