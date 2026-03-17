@@ -25,7 +25,8 @@ from datetime import datetime
 # ══════════════════════════════════════════════════════════════════════════════
 #  ★  SET THIS TO YOUR EXCEL FILE PATH FOR AUTO LIVE UPDATES  ★
 # ══════════════════════════════════════════════════════════════════════════════
-LOCAL_FILE   = r"C:\Users\adity\Downloads\Engineering_College_Management.xlsx"  # e.g. r"C:\Users\You\Desktop\Engineering_College_Management.xlsx"
+#LOCAL_FILE   = r"C:\Users\adity\Downloads\Engineering_College_Management.xlsx"  # e.g. r"C:\Users\You\Desktop\Engineering_College_Management.xlsx"
+LOCAL_FILE=None
 POLL_SECONDS = 3      # how often to check for file changes (seconds)
 # ══════════════════════════════════════════════════════════════════════════════
 
